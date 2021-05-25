@@ -1,9 +1,18 @@
-・maskを指定してテンプレートマッチング
-https://emotionexplorer.blog.fc2.com/blog-entry-26.html
-
 # All the 6 methods for comparison in a list
 methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR',
             'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
+meth = 0
+method = eval(meth)            
             
 res = cv2.matchTemplate(img,template,method)
 min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+
+・maskを指定してテンプレートマッチング
+https://emotionexplorer.blog.fc2.com/blog-entry-26.html
+#masked テンプレートマッチング
+#methods =['cv2.TM_SQDIFF','cv2.TM_CCORR_NORMED'] #only to models
+
+result = cv2.matchTemplate(image, templ, cv2.TM_CCORR_NORMED, mask=maskimg)
+
+#検出結果から検出領域の位置を取得
+min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
