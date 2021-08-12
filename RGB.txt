@@ -1,0 +1,2 @@
+im_rgb = cv2.cvtColor(im_cv, cv2.COLOR_BGR2RGB)
+im_bgr = cv2.cvtColor(im_pillow, cv2.COLOR_RGB2BGR)
