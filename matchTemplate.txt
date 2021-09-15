@@ -24,8 +24,16 @@ result = cv2.matchTemplate(image, templ, cv2.TM_CCORR_NORMED, mask=maskimg)
 #検出結果から検出領域の位置を取得
 min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
+w,h = templ.shape
 img_dbg = image.copy()
 top_left = max_loc #最も似ている領域を囲う
 #top_left = min_loc
 bottom_right = (top_left[0] + w, top_left[1] + h) #矩形の右下の座標計算
 cv2.rectangle(img_dbg,top_left, bottom_right, (0,0,0), 2)
+
+#mask(circle)
+def make_mask(mask_size,radius):
+    im_mask = np.zeros((mask_size,mask_size),np.uint8)
+    im_mask = cv2.circle(im_mask, center=(int(mask_size/2),int(mask_size/2)), radius=radius,
+                         color=255, thickness=-1)
+    return(im_mask)
