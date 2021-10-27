@@ -1,17 +1,23 @@
-# All the 6 methods for comparison in a list
 methods = ['cv2.TM_CCOEFF', 'cv2.TM_CCOEFF_NORMED', 'cv2.TM_CCORR',
             'cv2.TM_CCORR_NORMED', 'cv2.TM_SQDIFF', 'cv2.TM_SQDIFF_NORMED']
-meth = 0
-method = eval(meth)            
-            
-res = cv2.matchTemplate(img,template,method)
-min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
-    top_left = min_loc
-else:
-    top_left = max_loc
-    
-#  top_left[0]　= left_x, top_left[1] = top_y   
+meth = 1
+method = eval(methods[meth]) 
+
+def tmp_match(image,template,method):         
+    res = cv2.matchTemplate(image,template,method)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+    if method in [cv2.TM_SQDIFF, cv2.TM_SQDIFF_NORMED]:
+        top_left = min_loc
+        peak_val = min_val
+    else:
+        top_left = max_loc
+        peak_val = max_val
+
+    w,h = template.shape
+    img_dbg = image.copy()
+    bottom_right = (top_left[0] + w, top_left[1] + h) #矩形の右下の座標計算
+    cv2.rectangle(img_dbg,top_left, bottom_right, (255,255,255), 2)
+    return(res,peak_val,img_dbg)
 
 
 ・maskを指定してテンプレートマッチング
