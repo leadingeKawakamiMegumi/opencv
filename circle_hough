@@ -16,3 +16,25 @@ def circle_hough(img,param2):
             cimg2[i[1]-width:i[1]+width,i[0]-width:i[0]+width] = 150
             # draw the center of the circle
     return(circles,cimg,cimg2)
+
+def circle_hough(img,param2,minR=18,maxR=22,minD=20):
+#     circles = cv2.HoughCircles(img,cv2.HOUGH_GRADIENT,1,minDist=minD,
+#                                 param1=50,param2=param2,minRadius=minR,maxRadius=maxR)
+    circles = cv2.HoughCircles(img,cv2.HOUGH_GRADIENT,dp=1,minDist=minD,
+                                param1=50,param2=param2,minRadius=minR,maxRadius=maxR)
+    
+    show_flag = 1
+    cimg = img.copy()
+    #cimg2 = img.copy()
+    if circles is None:
+        print("No circle")
+        show_flag = 0
+    else:
+        #print("circle count",len(circles[0]))
+        circles = np.uint16(np.around(circles))
+        for i in circles[0,:][0:1]:
+            # draw the outer circle
+            #print("circle x,y,r",i)
+            width = int(i[2])
+            cv2.circle(cimg, (i[0],i[1]), i[2], (0, 0, 0), thickness=1, lineType=cv2.LINE_AA)
+    return(circles,cimg,show_flag)
