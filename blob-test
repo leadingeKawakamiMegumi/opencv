@@ -1,0 +1,52 @@
+def blob_test(image):
+    #https://qiita.com/isso_w/items/1108e20dd4b1199ed731
+    params = cv2.SimpleBlobDetector_Params()
+
+    params.filterByArea = True
+    params.minArea = 10
+
+    params.filterByCircularity = True #真円度　4*pi*Area/ perimeter*perimeter
+    params.minCircularity = 0.4
+
+    params.filterByConvexity = True #凸情報
+    params.minConvexity = 0.1
+
+    params.filterByInertia = True #楕円形を表す
+    params.minInertiaRatio = 0.1
+
+    detector = cv2.SimpleBlobDetector_create(params)
+
+    #Connected blob extraction
+    keypoints = detector.detect(image)
+
+    print("個数")
+    print(len(keypoints))
+    pts = cv2.KeyPoint_convert(keypoints)
+    #print("中心座標")
+    #print(pts)
+
+    # ブロブを赤丸で囲む
+    dbg_im = image.copy()
+    #blank = np.zeros((1,1))  
+    #blobs = cv2.drawKeypoints(image, keypoints, blank, (0,0,255), 
+    #                         cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS) 
+    out = cv2.drawKeypoints(dbg_im, keypoints, None, None, cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
+    #plt.imshow(out,cmap=cm.pink)
+
+    return(pts,out,keypoints)
+    
+
+def out_keypoints(keypoints):
+    #https://qiita.com/hitomatagi/items/62989573a30ec1d8180b
+    #http://opencv.jp/opencv-2svn/cpp/features2d_common_interfaces_of_feature_detectors.html
+    for i in range(0,7):
+        keypoint = keypoints[i] 
+        print("-----------------")
+        print("検出", str(i))
+        print("keypoint.pt",keypoint.pt) #中心座標
+        print("keypoint.size",keypoint.size) #直径
+        print("keypoint.angle",keypoint.angle) #[0, 360) の範囲の角度。y軸が下方向で右回り。計算不能な場合は-1　
+        print("keypoint.response",keypoint.response) #特徴点の強度
+        print("keypoint.octave",keypoint.octave) #特徴点を検出したピラミッドレイヤー
+        print("keypoint.class_id",keypoint.class_id)#特徴点が属するクラスのID
