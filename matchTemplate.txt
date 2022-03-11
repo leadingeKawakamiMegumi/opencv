@@ -13,7 +13,7 @@ def tmp_match(image,template,method):
         top_left = max_loc
         peak_val = max_val
 
-    w,h = template.shape
+    h.w = template.shape
     img_dbg = image.copy()
     bottom_right = (top_left[0] + w, top_left[1] + h) #矩形の右下の座標計算(x,y)
     cv2.rectangle(img_dbg,top_left, bottom_right, (255,255,255), 2)
