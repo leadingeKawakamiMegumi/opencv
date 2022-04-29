@@ -1,0 +1,8 @@
+#https://www.mathpython.com/ja/python-number-round/
+
+from decimal import Decimal, ROUND_HALF_UP
+
+def rounding_int(x):
+    sx = Decimal(str(x))
+    a = sx.quantize(Decimal('0'), rounding=ROUND_HALF_UP)
+    return(int(a))
