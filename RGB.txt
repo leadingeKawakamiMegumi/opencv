@@ -1,2 +1,14 @@
 im_rgb = cv2.cvtColor(im_cv, cv2.COLOR_BGR2RGB)
 im_bgr = cv2.cvtColor(im_pillow, cv2.COLOR_RGB2BGR)
+
+#
+im = cv2.imread(f_list3[0]) #BGR
+fig = plt.figure(figsize = (15,8))
+im_blue = im[:,:,0]
+im_green = im[:,:,1]
+im_red = im[:,:,2]
+im_rgb = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+plt.subplot(231),plt.imshow(im_rgb,cmap = cm.gray)
+plt.subplot(234),plt.imshow(im_blue,cmap="Blues")
+plt.subplot(235),plt.imshow(im_green ,cmap="Greens")
+plt.subplot(236),plt.imshow(im[:,:,2],cmap="Reds")
