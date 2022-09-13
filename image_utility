@@ -1,9 +1,16 @@
-def im_rotation(im,rotation,im_size=512):
+def im_rotation1(im,rotation,im_size=512):
     center = ((im_size-1)/2,(im_size-1)/2)
     im_temp = im.copy()
-    rotation_matrix = cv2.getRotationMatrix2D(center,rotation, 1) #左周り角度(見た目）-28
+    rotation_matrix = cv2.getRotationMatrix2D(center,rotation, 1) 
     im_temp_r = cv2.warpAffine(im_temp, rotation_matrix, (im_size,im_size))
     return im_temp_r
+    
+def im_rotation(im,rotation,im_size=(x,y)):
+    center = ((im_size[0]-1)/2,(im_size[1]-1)/2)
+    im_temp = im.copy()
+    rotation_matrix = cv2.getRotationMatrix2D(center,rotation, 1) 
+    im_temp_r = cv2.warpAffine(im_temp, rotation_matrix, (x,y))
+    return im_temp_r    
     
 
 def im_shift(im,shiftx,shifty):
