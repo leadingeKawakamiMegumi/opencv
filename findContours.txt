@@ -1,0 +1,50 @@
+import numpy as np
+import cv2
+
+im = cv2.imread('test.jpg')
+imgray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
+imgray = cv2.GaussianBlur(imgray,(5,5),0)
+
+ret,thresh = cv2.threshold(imgray ,127,255,0)
+contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE) #after opencv3.2
+imgEdge,contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)  #opencv3.2 yori mae
+
+imgEdge:抽出された輪郭（画像）
+contours：輪郭の点
+hirerachy：階層情報　（？）
+
+#輪郭の描画
+img = cv2.drawContours(img, contours, -1, (0,255,0), 3)
+
+#一番大きい図形の円近似
+max_cnt = max(contours, key=lambda x: cv2.contourArea(x))    
+cnt = max_cnt
+center, radius = cv2.minEnclosingCircle(cnt)
+#円の確認
+img_dbg2 = image.copy()
+cx,cy = center
+cv2.circle(img_dbg2,(int(cx),int(cy)) , int(radius), color=0, thickness=-1)
+plt.imshow(img_dbg2)
+
+---------------------------------------
+#https://www.pynote.info/entry/opencv-contour-manipulation
+for i, cnt in enumerate(contours):
+    # 輪郭の面積を計算する。
+    area = cv2.contourArea(cnt)
+    print("contour: {}, area: {}".format(i, area))
+---------------------------------------
+
+cv2.CHAIN_APPROX_NONE :全点の情報
+cv2.CHAIN_APPROX_SIMPLE：輪郭を圧縮
+
+抽出モード
+RETER_EXTERNAL
+RETER_TREE
+RETER_LIST
+RETER_CCOMP
+
+https://qiita.com/anyamaru/items/fd3d894966a98098376c
+img = target.copy()
+img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+img = cv2.drawContours(img, contours, 0, (0,255,0), 10)
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
