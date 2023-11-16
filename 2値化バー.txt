@@ -1,0 +1,34 @@
+#(reference)https://qiita.com/TanakaSystem/items/b10572fda6f1fb7b9413
+
+gray = im
+
+threshold_under = 30
+threshold_top = 200
+
+def nothing(x):
+    pass
+
+cv2.namedWindow('window')
+
+cv2.createTrackbar('threshold_under','window', threshold_under , 255, nothing)
+cv2.createTrackbar('threshold_top','window', threshold_top , 255, nothing)
+
+delay = 1
+ESC_KEY = 27
+
+while True:
+
+    # トラックバーから値を取得
+    threshold_under = cv2.getTrackbarPos('threshold_under','window')
+    threshold_top = cv2.getTrackbarPos('threshold_top','window')
+
+    # 二値化
+    threshold  = np.where((gray > threshold_under) & (gray < threshold_top), gray ,0)
+    #threshold = np.where(im_th1 < threshold_top, gray ,0)
+
+    # 描画
+    cv2.imshow("window", threshold)
+    
+    if cv2.waitKey(10) == 27: #ESC
+        break
+cv2.destroyAllWindows()
