@@ -1,0 +1,15 @@
+(1)位相限定相関
+(x, y), r = cv2.phaseCorrelate(im.astype(np.float32),mask.astype(np.float32))
+
+
+(2)回転不変位相限定相関
+https://github.com/daisukekobayashi/pocpy
+M = im_size/np.log(im_size/2)
+
+
+(3)マスク有正規化相互相関
+skimage.resistration.masked_register_translation
+（HP短縮版）
+https://00m.in/GuBSt
+（短縮前）
+https://scikit--image-org.translate.goog/docs/stable/auto_examples/registration/plot_masked_register_translation.html?_x_tr_sl=en&_x_tr_tl=ja&_x_tr_hl=ja&_x_tr_pto=sc#sphx-glr-auto-examples-registration-plot-masked-register-translation-py
