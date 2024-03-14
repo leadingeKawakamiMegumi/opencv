@@ -5,7 +5,7 @@
 array([[ True, False],
        [False,  True]])
 
->>> b = a.astype(np.int)
+>>> b = a.astype(np.uint8)
 >>> b
 array([[1, 0],
        [0, 1]])
