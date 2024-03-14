@@ -1,0 +1,15 @@
+#https://water2litter.net/rum/post/python_bool_to_int/
+>>> import numpy as np
+>>> a = np.array([[True, False],[False, True]])
+>>> a
+array([[ True, False],
+       [False,  True]])
+
+>>> b = a.astype(np.int)
+>>> b
+array([[1, 0],
+       [0, 1]])
+
+#cf.
+int(True)=1
+int(False)=0
