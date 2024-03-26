@@ -23,7 +23,11 @@ def im_shift(im,shiftx,shifty):
     #print(mat)
     im_s = cv2.warpAffine(im, mat, (w,h))
     return im_s
-    
+
+#from scipy import ndimage as ndi
+#shift = (shifty,shiftx)
+#offset_image = ndi.shift(image, shift)
+
 
 def blend_im_dbg(f_xy,g_xy,t1,t2,angle,s_scale,folder_name,str_iy,str_ix,k,g512):
     '''input image shape is square'''
