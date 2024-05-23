@@ -10,6 +10,9 @@ def im_rotation1(im,rotation,im_size=512):
     return im_temp_r
     
 def im_rotation(im,rotation,im_size=(x,y)):
+    '''
+    rotation:angle[degree]
+    '''
     center = ((im_size[0]-1)/2,(im_size[1]-1)/2)
     im_temp = im.copy()
     rotation_matrix = cv2.getRotationMatrix2D(center,rotation, 1) 
