@@ -11,7 +11,8 @@ def im_rotation1(im,rotation,im_size=512):
     
 def im_rotation(im,rotation,im_size=(x,y)):
     '''
-    rotation:angle[degree]
+    rotation:angle[degree],around the left
+    im_size :(x,y) = (im.shape[1],im.shape[0])
     '''
     center = ((im_size[0]-1)/2,(im_size[1]-1)/2)
     im_temp = im.copy()
